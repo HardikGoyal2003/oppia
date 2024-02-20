@@ -50,12 +50,12 @@ class CustomLintChecksManagerTests(test_utils.LinterTestBase):
         )
         self.package_file = io.StringIO(
             '{"dependencies":{"nerdamer":"^0.6","skulpt-dist":"0.2",'
-            '"guppy-dev":"git+https://github.com/oppia/guppy#f509e",'
+            '"guppy-dev":"git+https://github.com/oppia/guppy#cd3d747",'
             '"midi": "git+https://github.com/oppia/miDI.js#c26eb"}}'
         )
 
         self.files_in_typings_dir = [
-            'guppy-defs-f509e.d.ts',
+            'guppy-defs-cd3d747.d.ts',
             'skulpt-defs-0.2.d.ts',
             'midi-defs-c26eb.d.ts',
             'nerdamer-defs-0.6.d.ts'
@@ -266,7 +266,7 @@ class CustomLintChecksManagerTests(test_utils.LinterTestBase):
                 error_messages.get_report()[1], expected_error_messages)
             self.assert_same_list_elements([
                 'Type definitions for Guppy are not up to date. The '
-                'current version of Guppy is f509e and the type definitions '
+                'current version of Guppy is cd3d747 and the type definitions '
                 'are for version 0.2. Please refer typings/README.md '
                 'for more details.'], error_messages.get_report())
             self.assertEqual('Third party type defs', error_messages.name)
