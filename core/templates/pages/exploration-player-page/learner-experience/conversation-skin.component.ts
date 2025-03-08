@@ -138,10 +138,8 @@ export class ConversationSkinComponent {
   DEFAULT_TWITTER_SHARE_MESSAGE_PLAYER =
     AppConstants.DEFAULT_TWITTER_SHARE_MESSAGE_EDITOR;
 
-  // If the exploration is iframed, send data to its parent about
-  // its height so that the parent can be resized as necessary.
-  lastRequestedHeight: number = 0;
-  lastRequestedScroll: boolean = false;
+
+  
   startCardChangeAnimation: boolean;
   collectionSummary;
   redirectToRefresherExplorationConfirmed;
@@ -205,7 +203,6 @@ export class ConversationSkinComponent {
     private learnerAnswerInfoService: LearnerAnswerInfoService,
     private learnerParamsService: LearnerParamsService,
     private loaderService: LoaderService,
-    private messengerService: MessengerService,
     private localStorageService: LocalStorageService,
     private numberAttemptsService: NumberAttemptsService,
     private playerPositionService: PlayerPositionService,
@@ -231,11 +228,6 @@ export class ConversationSkinComponent {
     private voiceoverPlayerService: VoiceoverPlayerService
   ) {}
 
-  adjustPageHeightOnresize(): void {
-    this.windowRef.nativeWindow.onresize = () => {
-      this.adjustPageHeight(false, null);
-    };
-  }
 
   ngOnInit(): void {
     this._editorPreviewMode = this.contextService.isInExplorationEditorPage();
@@ -426,7 +418,7 @@ export class ConversationSkinComponent {
         this.localStorageService.removeUniqueProgressIdOfLoggedOutLearner();
       }
 
-      this.adjustPageHeightOnresize();
+      this.conversationFlowService.adjustPageHeightOnresize();
 
       this.currentInteractionService.setOnSubmitFn(
         this.submitAnswer.bind(this)
@@ -617,33 +609,6 @@ export class ConversationSkinComponent {
 
   getContentFocusLabel(index: number): string {
     return ExplorationPlayerConstants.CONTENT_FOCUS_LABEL_PREFIX + index;
-  }
-
-  adjustPageHeight(scroll: boolean, callback: () => void): void {
-    setTimeout(() => {
-      let newHeight = document.body.scrollHeight;
-      if (
-        Math.abs(this.lastRequestedHeight - newHeight) > 50.5 ||
-        (scroll && !this.lastRequestedScroll)
-      ) {
-        // Sometimes setting iframe height to the exact content height
-        // still produces scrollbar, so adding 50 extra px.
-        newHeight += 50;
-        this.messengerService.sendMessage(
-          ServicesConstants.MESSENGER_PAYLOAD.HEIGHT_CHANGE,
-          {
-            height: newHeight,
-            scroll: scroll,
-          }
-        );
-        this.lastRequestedHeight = newHeight;
-        this.lastRequestedScroll = scroll;
-      }
-
-      if (callback) {
-        callback();
-      }
-    }, 100);
   }
 
   getExplorationLink(): string {
@@ -1173,7 +1138,7 @@ export class ConversationSkinComponent {
         this.i18nLanguageCodeService.setI18nLanguageCode('en');
       }
     }
-    this.adjustPageHeight(false, null);
+    this.conversationFlowService.adjustPageHeight(false, null);
     this.windowRef.nativeWindow.scrollTo(0, 0);
 
     // The timeout is needed in order to give the recipient of the
