@@ -27,7 +27,7 @@
         <h4 tabindex="0" [ngClass]="(checkpointCount === 1) ? 'd-none' : 'progress-bar-label-text'">
           Learning Progress
         </h4>
-        <div class="progress-bar-container"
+        <!-- <div class="progress-bar-container"
              [ngClass]="{'d-none': checkpointCount === 1, 'multiple-checkpoints-bar': checkpointCount > 1, 'reverse-checkpoint-order': isLanguageRTL()}">
           <div class="lesson-progress-bar"
                [ngClass]="{'reverse-checkpoint-order': isLanguageRTL()}">
@@ -41,7 +41,7 @@
                (click)="returnToCheckpointIfCompleted(idx)">
             {{ idx + 1 }}
           </div>
-        </div>
+        </div> -->
         <p *ngIf="translatedCongratulatoryCheckpointMessage"
            class="checkpoint-message-text e2e-test-lesson-info-modal-checkpoint-message">
           {{ translatedCongratulatoryCheckpointMessage }}

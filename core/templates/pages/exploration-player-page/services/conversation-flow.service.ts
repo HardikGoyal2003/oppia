@@ -29,6 +29,14 @@ import { MessengerService } from 'services/messenger.service';
 import { ServicesConstants } from 'services/services.constants';
 import { LoaderService } from 'services/loader.service';
 import { ExplorationPlayerConstants } from '../exploration-player-page.constants';
+import { VoiceoverPlayerService } from './voiceover-player.service';
+import {AppConstants} from 'app.constants';
+import { PlayerPositionService } from './player-position.service';
+import { ExplorationEngineService } from './exploration-engine.service';
+import { LearnerDashboardBackendApiService } from 'domain/learner_dashboard/learner-dashboard-backend-api.service';
+import { ConceptCardBackendApiService } from 'domain/skill/concept-card-backend-api.service';
+import { CollectionPlayerBackendApiService } from 'pages/collection-player-page/services/collection-player-backend-api.service';
+import { AlertsService } from 'services/alerts.service';
 
 @Injectable({
   providedIn: 'root',
@@ -46,7 +54,13 @@ export class ConversationFlowService {
     private contentTranslationManagerService: ContentTranslationManagerService,
     private explorationPlayerStateService: ExplorationPlayerStateService,
     private loaderService: LoaderService,
+    private collectionPlayerBackendApiService: CollectionPlayerBackendApiService,
+    private alertsService: AlertsService,
+    private playerPositionService: PlayerPositionService,
+    private explorationEngineService: ExplorationEngineService,
+    private learnerDashboardBackendApiService: LearnerDashboardBackendApiService,
     private playerTranscriptService: PlayerTranscriptService,
+    private voiceoverPlayerService: VoiceoverPlayerService
   ) {}
 
   adjustPageHeightOnresize(): void {
@@ -88,6 +102,74 @@ export class ConversationFlowService {
 
   getContentFocusLabel(index: number): string {
     return ExplorationPlayerConstants.CONTENT_FOCUS_LABEL_PREFIX + index;
+  }
+
+  getRandomSuffix(): string {
+    // This is a bit of a hack. When a refresh to a $scope variable
+    // happens,
+    // AngularJS compares the new value of the variable to its previous
+    // value. If they are the same, then the variable is not updated.
+    // Appending a random suffix makes the new value different from the
+    // previous one, and thus indirectly forces a refresh.
+    let randomSuffix = '';
+    let N = Math.round(Math.random() * 1000);
+    for (let i = 0; i < N; i++) {
+      randomSuffix += ' ';
+    }
+    return randomSuffix;
+  }
+
+  returnToExplorationAfterConceptCard(): void {
+    this.playerTranscriptService.addPreviousCard();
+    let numCards = this.playerTranscriptService.getNumCards();
+    this.playerPositionService.setDisplayedCardIndex(numCards - 1);
+  }
+
+  fetchCollectionSummary(collectionId: string): string[] | null {
+    let collectionSummary = null;
+    this.collectionPlayerBackendApiService
+    .fetchCollectionSummariesAsync(collectionId)
+    .then(
+      response => {
+        collectionSummary = response.summaries[0];
+      },
+      () => {
+        this.alertsService.addWarning(
+          'There was an error while fetching the collection ' + 'summary.'
+        );
+      }
+    );
+    return collectionSummary;
+  }
+
+  setActiveVoiceover(feedbackHtml: string, displayedCard: StateCard): void {
+    let interaction = displayedCard.getInteraction();
+
+    let feedbackContentId =
+      interaction.getContentIdForMatchingHtml(feedbackHtml);
+
+    if (feedbackContentId) {
+      this.voiceoverPlayerService.setActiveVoiceover(feedbackContentId);
+    }
+  }
+
+  doesCollectionAllowsGuestProgress(collectionId: string | never): boolean {
+    let allowedCollectionIds =
+      AppConstants.ALLOWED_COLLECTION_IDS_FOR_SAVING_GUEST_PROGRESS;
+    return (
+      (allowedCollectionIds as readonly []).indexOf(collectionId as never) !==
+      -1
+    );
+  }
+
+  fetchCompletedChaptersCount(): number {
+    let completedChaptersCount = 0;
+    this.learnerDashboardBackendApiService
+      .fetchLearnerCompletedChaptersCountDataAsync()
+      .then(data => {
+        completedChaptersCount = data.completedChaptersCount;
+      });
+    return completedChaptersCount;
   }
 
   addNewCard(newCard: StateCard): void {
