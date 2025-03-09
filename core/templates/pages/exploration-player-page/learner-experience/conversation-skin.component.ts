@@ -47,7 +47,6 @@ import {NumberAttemptsService} from '../services/number-attempts.service';
 import {PlayerPositionService} from '../services/player-position.service';
 import {PlayerTranscriptService} from '../services/player-transcript.service';
 import {QuestionPlayerEngineService} from '../services/question-player-engine.service';
-import {ReadOnlyCollectionBackendApiService} from 'domain/collection/read-only-collection-backend-api.service';
 import {RefresherExplorationConfirmationModalService} from '../services/refresher-exploration-confirmation-modal.service';
 import {SiteAnalyticsService} from 'services/site-analytics.service';
 import {StatsReportingService} from '../services/stats-reporting.service';
@@ -80,7 +79,6 @@ import './conversation-skin.component.css';
 import {ConceptCardManagerService} from '../services/concept-card-manager.service';
 import {TranslateService} from '@ngx-translate/core';
 import {Solution} from 'domain/exploration/SolutionObjectFactory';
-import {EntityVoiceoversService} from 'services/entity-voiceovers.services';
 import {VoiceoverPlayerService} from '../services/voiceover-player.service';
 
 // Note: This file should be assumed to be in an IIFE, and the constants below
@@ -117,7 +115,6 @@ export class ConversationSkinComponent {
   storyNodeIdToAdd: string;
   inStoryMode: boolean = false;
   collectionId: string;
-  collectionTitle: string;
   answerIsBeingProcessed: boolean = false;
   explorationId: string;
   isInPreviewMode: boolean;
@@ -205,7 +202,6 @@ export class ConversationSkinComponent {
     private playerTranscriptService: PlayerTranscriptService,
     private questionPlayerEngineService: QuestionPlayerEngineService,
     private questionPlayerStateService: QuestionPlayerStateService,
-    private readOnlyCollectionBackendApiService: ReadOnlyCollectionBackendApiService,
     private refresherExplorationConfirmationModalService: RefresherExplorationConfirmationModalService,
     private siteAnalyticsService: SiteAnalyticsService,
     private statsReportingService: StatsReportingService,
@@ -229,16 +225,6 @@ export class ConversationSkinComponent {
 
     this.collectionId = this.urlService.getCollectionIdFromExplorationUrl();
     this.pidInUrl = this.urlService.getPidFromUrl();
-
-    if (this.collectionId) {
-      this.readOnlyCollectionBackendApiService
-        .loadCollectionAsync(this.collectionId)
-        .then(collection => {
-          this.collectionTitle = collection.getTitle();
-        });
-    } else {
-      this.collectionTitle = null;
-    }
 
     if (this.diagnosticTestTopicTrackerModel) {
       this.feedbackIsEnabled = false;
