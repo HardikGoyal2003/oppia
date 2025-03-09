@@ -464,10 +464,6 @@ export class TutorCardComponent {
     return null;
   }
 
-  getContentFocusLabel(index: number): string {
-    return ExplorationPlayerConstants.CONTENT_FOCUS_LABEL_PREFIX + index;
-  }
-
   toggleShowPreviousResponses(): void {
     this.arePreviousResponsesShown = !this.arePreviousResponsesShown;
   }
@@ -485,7 +481,9 @@ export class TutorCardComponent {
 
   showAudioBar(): boolean {
     return (
-      !this.isIframed && !this.explorationPlayerStateService.isInQuestionMode()
+      !this.isIframed &&
+      !this.explorationPlayerStateService.isInQuestionMode() &&
+      !this.platformFeatureService.status.NewLessonPlayer.isEnabled
     );
   }
 

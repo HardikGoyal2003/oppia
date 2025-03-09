@@ -27,6 +27,8 @@ import {PlayerTranscriptService} from './player-transcript.service';
 import { WindowRef } from 'services/contextual/window-ref.service';
 import { MessengerService } from 'services/messenger.service';
 import { ServicesConstants } from 'services/services.constants';
+import { LoaderService } from 'services/loader.service';
+import { ExplorationPlayerConstants } from '../exploration-player-page.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -43,7 +45,8 @@ export class ConversationFlowService {
     private contentTranslationLanguageService: ContentTranslationLanguageService,
     private contentTranslationManagerService: ContentTranslationManagerService,
     private explorationPlayerStateService: ExplorationPlayerStateService,
-    private playerTranscriptService: PlayerTranscriptService
+    private loaderService: LoaderService,
+    private playerTranscriptService: PlayerTranscriptService,
   ) {}
 
   adjustPageHeightOnresize(): void {
@@ -77,6 +80,14 @@ export class ConversationFlowService {
         callback();
       }
     }, 100);
+  }
+
+  showQuestionAreNotAvailable(): void {
+    this.loaderService.hideLoadingScreen();
+  }
+
+  getContentFocusLabel(index: number): string {
+    return ExplorationPlayerConstants.CONTENT_FOCUS_LABEL_PREFIX + index;
   }
 
   addNewCard(newCard: StateCard): void {

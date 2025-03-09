@@ -25,6 +25,17 @@
   color: #fff;
 }
 
+.player-header-close-button button {
+  background: none;
+  border: none;
+  outline: none;
+  padding: 12px;
+}
+
+.player-header-close-button i {
+  color: #fff;
+}
+
 @media screen and (max-width: 574px) {
   .player-header-right {
     display: block;

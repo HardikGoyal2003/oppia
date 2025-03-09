@@ -43,7 +43,6 @@ import {ImagePreloaderService} from '../services/image-preloader.service';
 import {LearnerAnswerInfoService} from '../services/learner-answer-info.service';
 import {LearnerParamsService} from '../services/learner-params.service';
 import {LoaderService} from 'services/loader.service';
-import {MessengerService} from 'services/messenger.service';
 import {NumberAttemptsService} from '../services/number-attempts.service';
 import {PlayerPositionService} from '../services/player-position.service';
 import {PlayerTranscriptService} from '../services/player-transcript.service';
@@ -137,9 +136,6 @@ export class ConversationSkinComponent {
   correctnessFooterIsShown: boolean = true;
   DEFAULT_TWITTER_SHARE_MESSAGE_PLAYER =
     AppConstants.DEFAULT_TWITTER_SHARE_MESSAGE_EDITOR;
-
-
-  
   startCardChangeAnimation: boolean;
   collectionSummary;
   redirectToRefresherExplorationConfirmed;
@@ -224,7 +220,6 @@ export class ConversationSkinComponent {
     private translateService: TranslateService,
     private learnerDashboardBackendApiService: LearnerDashboardBackendApiService,
     private conversationFlowService: ConversationFlowService,
-    private entityVoiceoversService: EntityVoiceoversService,
     private voiceoverPlayerService: VoiceoverPlayerService
   ) {}
 
@@ -607,10 +602,6 @@ export class ConversationSkinComponent {
     return this.urlInterpolationService.getStaticImageUrl(imagePath);
   }
 
-  getContentFocusLabel(index: number): string {
-    return ExplorationPlayerConstants.CONTENT_FOCUS_LABEL_PREFIX + index;
-  }
-
   getExplorationLink(): string {
     if (
       this.recommendedExplorationSummaries &&
@@ -860,7 +851,7 @@ export class ConversationSkinComponent {
       this.focusManagerService.setFocusIfOnDesktop(this._nextFocusLabel);
     } else {
       this.focusManagerService.setFocusIfOnDesktop(
-        this.getContentFocusLabel(index)
+        this.conversationFlowService.getContentFocusLabel(index)
       );
     }
   }
@@ -1094,9 +1085,7 @@ export class ConversationSkinComponent {
     this.showPendingCard();
   }
 
-  showQuestionAreNotAvailable(): void {
-    this.loaderService.hideLoadingScreen();
-  }
+
 
   private _initializeDirectiveComponents(initialCard, focusLabel): void {
     this._addNewCard(initialCard);
@@ -1163,7 +1152,7 @@ export class ConversationSkinComponent {
       this.explorationPlayerStateService.initializeQuestionPlayer(
         this.questionPlayerConfig,
         this._initializeDirectiveComponents.bind(this),
-        this.showQuestionAreNotAvailable
+        this.conversationFlowService.showQuestionAreNotAvailable
       );
     } else if (this.diagnosticTestTopicTrackerModel) {
       this.explorationPlayerStateService.initializeDiagnosticPlayer(
