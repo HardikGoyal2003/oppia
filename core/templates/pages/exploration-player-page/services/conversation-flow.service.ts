@@ -32,11 +32,14 @@ import { ExplorationPlayerConstants } from '../exploration-player-page.constants
 import { VoiceoverPlayerService } from './voiceover-player.service';
 import {AppConstants} from 'app.constants';
 import { PlayerPositionService } from './player-position.service';
-import { ExplorationEngineService } from './exploration-engine.service';
 import { LearnerDashboardBackendApiService } from 'domain/learner_dashboard/learner-dashboard-backend-api.service';
-import { ConceptCardBackendApiService } from 'domain/skill/concept-card-backend-api.service';
 import { CollectionPlayerBackendApiService } from 'pages/collection-player-page/services/collection-player-backend-api.service';
 import { AlertsService } from 'services/alerts.service';
+import { FetchExplorationBackendResponse,
+  ReadOnlyExplorationBackendApiService } from 'domain/exploration/read-only-exploration-backend-api.service';
+import { StateObjectsBackendDict } from 'domain/exploration/StatesObjectFactory';
+import { ContextService } from 'services/context.service';
+import { ExplorationEngineService } from './exploration-engine.service';
 
 @Injectable({
   providedIn: 'root',
@@ -47,19 +50,23 @@ export class ConversationFlowService {
   lastRequestedHeight: number = 0;
   lastRequestedScroll: boolean = false;
 
+  explorationId: string;
+
   constructor(
     private windowRef: WindowRef,
     private messengerService: MessengerService,
+    private explorationEngineService: ExplorationEngineService,
     private contentTranslationLanguageService: ContentTranslationLanguageService,
     private contentTranslationManagerService: ContentTranslationManagerService,
     private explorationPlayerStateService: ExplorationPlayerStateService,
     private loaderService: LoaderService,
     private collectionPlayerBackendApiService: CollectionPlayerBackendApiService,
+    private readOnlyExplorationBackendApiService: ReadOnlyExplorationBackendApiService,
     private alertsService: AlertsService,
     private playerPositionService: PlayerPositionService,
-    private explorationEngineService: ExplorationEngineService,
     private learnerDashboardBackendApiService: LearnerDashboardBackendApiService,
     private playerTranscriptService: PlayerTranscriptService,
+    private contextService: ContextService,
     private voiceoverPlayerService: VoiceoverPlayerService
   ) {}
 
@@ -187,5 +194,64 @@ export class ConversationFlowService {
 
   isSupplementalCardNonempty(card: StateCard): boolean {
     return !card.isInteractionInline();
+  }
+
+  // Real stuff.
+
+  async getCheckpointCount(): Promise<number> {
+    this.explorationId = this.contextService.getExplorationId();
+    return this.readOnlyExplorationBackendApiService
+      .fetchExplorationAsync(this.explorationId, null)
+      .then((response: FetchExplorationBackendResponse) => {
+        let expStates: StateObjectsBackendDict = response.exploration.states;
+        let checkpointCount = 0;
+        for (let [, value] of Object.entries(expStates)) {
+          if (value.card_is_checkpoint) {
+            checkpointCount++;
+          }
+        }
+        return checkpointCount;
+      });
+  }
+
+  getMostRecentlyReachedCheckpointIndex(): number {
+    let checkpointIndex = 0;
+    let numberOfCards = this.playerTranscriptService.getNumCards();
+    for (let i = 0; i < numberOfCards; i++) {
+      let stateName = this.playerTranscriptService.getCard(i).getStateName();
+      let correspondingState =
+        this.explorationEngineService.getStateFromStateName(stateName);
+      if (correspondingState.cardIsCheckpoint) {
+        checkpointIndex++;
+      }
+    }
+    return checkpointIndex;
+  }
+
+  getCompletedCheckpointsCount(checkpointCount: number): number {
+    let completedCheckpointsCount = 0;
+    let mostRecentlyReachedCheckpointIndex =
+    this.getMostRecentlyReachedCheckpointIndex();
+
+    completedCheckpointsCount = mostRecentlyReachedCheckpointIndex - 1;
+
+    let displayedCardIndex = this.playerPositionService.getDisplayedCardIndex();
+    if (displayedCardIndex > 0) {
+      let state = this.explorationEngineService.getState();
+      let stateCard = this.explorationEngineService.getStateCardByName(
+        state.name
+      );
+      if (stateCard.isTerminal()) {
+        completedCheckpointsCount += 1;
+      }
+    }
+
+    // If the last checkpoint was completed, then the learner has
+    // completed all the checkpoints.
+    if (completedCheckpointsCount === checkpointCount) {
+      completedCheckpointsCount = checkpointCount;
+    }
+
+    return completedCheckpointsCount;
   }
 }
