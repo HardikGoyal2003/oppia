@@ -35,9 +35,6 @@ import { PlayerPositionService } from './player-position.service';
 import { LearnerDashboardBackendApiService } from 'domain/learner_dashboard/learner-dashboard-backend-api.service';
 import { CollectionPlayerBackendApiService } from 'pages/collection-player-page/services/collection-player-backend-api.service';
 import { AlertsService } from 'services/alerts.service';
-import { FetchExplorationBackendResponse,
-  ReadOnlyExplorationBackendApiService } from 'domain/exploration/read-only-exploration-backend-api.service';
-import { StateObjectsBackendDict } from 'domain/exploration/StatesObjectFactory';
 import { ContextService } from 'services/context.service';
 import { ExplorationEngineService } from './exploration-engine.service';
 
@@ -55,18 +52,15 @@ export class ConversationFlowService {
   constructor(
     private windowRef: WindowRef,
     private messengerService: MessengerService,
-    private explorationEngineService: ExplorationEngineService,
     private contentTranslationLanguageService: ContentTranslationLanguageService,
     private contentTranslationManagerService: ContentTranslationManagerService,
     private explorationPlayerStateService: ExplorationPlayerStateService,
     private loaderService: LoaderService,
     private collectionPlayerBackendApiService: CollectionPlayerBackendApiService,
-    private readOnlyExplorationBackendApiService: ReadOnlyExplorationBackendApiService,
     private alertsService: AlertsService,
     private playerPositionService: PlayerPositionService,
     private learnerDashboardBackendApiService: LearnerDashboardBackendApiService,
     private playerTranscriptService: PlayerTranscriptService,
-    private contextService: ContextService,
     private voiceoverPlayerService: VoiceoverPlayerService
   ) {}
 
