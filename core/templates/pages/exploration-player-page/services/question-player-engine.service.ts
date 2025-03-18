@@ -38,6 +38,7 @@ import {ContextService} from 'services/context.service';
 import {ExplorationHtmlFormatterService} from 'services/exploration-html-formatter.service';
 import {FocusManagerService} from 'services/stateful/focus-manager.service';
 import {AudioTranslationLanguageService} from 'pages/exploration-player-page/services/audio-translation-language.service';
+import { ExplorationEngineService } from './exploration-engine.service';
 
 @Injectable({
   providedIn: 'root',
@@ -56,7 +57,7 @@ export class QuestionPlayerEngineService {
     private explorationHtmlFormatterService: ExplorationHtmlFormatterService,
     private expressionInterpolationService: ExpressionInterpolationService,
     private focusManagerService: FocusManagerService,
-    private questionObjectFactory: QuestionObjectFactory
+    private explorationEngineService: ExplorationEngineService,
   ) {}
 
   // Evaluate feedback.
@@ -76,21 +77,6 @@ export class QuestionPlayerEngineService {
       newState.content.html,
       envs
     );
-  }
-
-  private getRandomSuffix(): string {
-    // This is a bit of a hack. When a refresh to a $scope variable
-    // happens,
-    // AngularJS compares the new value of the variable to its previous
-    // value. If they are the same, then the variable is not updated.
-    // Appending a random suffix makes the new value different from the
-    // previous one, and thus indirectly forces a refresh.
-    let randomSuffix = '';
-    const N = Math.round(Math.random() * 1000);
-    for (let i = 0; i < N; i++) {
-      randomSuffix += ' ';
-    }
-    return randomSuffix;
   }
 
   // This should only be called when 'exploration' is non-null.
@@ -340,8 +326,8 @@ export class QuestionPlayerEngineService {
     if (!isFinalQuestion) {
       let nextInteractionHtml = this.getNextInteractionHtml(_nextFocusLabel);
 
-      questionHtml = questionHtml + this.getRandomSuffix();
-      nextInteractionHtml = nextInteractionHtml + this.getRandomSuffix();
+      questionHtml = questionHtml + this.explorationEngineService.getRandomSuffix();
+      nextInteractionHtml = nextInteractionHtml + this.explorationEngineService.getRandomSuffix();
       nextCard = StateCard.createNewCard(
         'true',
         questionHtml,

@@ -48,7 +48,7 @@ import {QuestionPlayerEngineService} from './question-player-engine.service';
 import {DiagnosticTestPlayerEngineService} from './diagnostic-test-player-engine.service';
 import {StatsReportingService} from './stats-reporting.service';
 
-interface QuestionPlayerConfigDict {
+export interface QuestionPlayerConfigDict {
   skillList: string[];
   questionCount: number;
   questionsSortedByDifficulty: boolean;

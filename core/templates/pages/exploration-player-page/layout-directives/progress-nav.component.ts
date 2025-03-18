@@ -43,6 +43,7 @@ import {ContentTranslationManagerService} from '../services/content-translation-
 
 import './progress-nav.component.css';
 import {InteractionCustomizationArgs} from 'interactions/customization-args-defs';
+import { ConversationFlowService } from '../services/conversation-flow.service';
 
 @Component({
   selector: 'oppia-progress-nav',
@@ -111,6 +112,7 @@ export class ProgressNavComponent {
     private i18nLanguageCodeService: I18nLanguageCodeService,
     private playerPositionService: PlayerPositionService,
     private playerTranscriptService: PlayerTranscriptService,
+    private conversationFlowService: ConversationFlowService,
     private urlService: UrlService,
     private schemaFormSubmittedService: SchemaFormSubmittedService,
     private windowDimensionsService: WindowDimensionsService,
