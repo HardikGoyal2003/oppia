@@ -1,4 +1,4 @@
-<div class="progress-bar-container" 
+<!-- <div class="progress-bar-container" 
      [ngClass]="{'single-checkpoint-bar': checkpointCount === 1, 
                  'multiple-checkpoints-bar': checkpointCount > 1, 
                  'reverse-checkpoint-order': isLanguageRTL()}">
@@ -18,4 +18,17 @@
     {{ idx + 1 }}
   </div>
 
+</div> -->
+
+<div class="progress-bar-container"
+[ngClass]="{'d-none': checkpointCount === 1, 'multiple-checkpoints-bar': checkpointCount > 1}">
+  <div class="lesson-progress-bar">
+    <div tabindex="0" class="completed-progress-bar"
+        [style.width.%]="getCompletedProgressBarWidth()"
+        [attr.aria-label]="getProgressPercentage() + ' percent completed'">
+    </div>
+  </div>
+  <div *ngFor="let checkpointNode of checkpointStatusArray; index as idx"
+    [ngClass]="{'completed-checkpoint-node': checkpointStatusArray[idx] === 'completed', 'in-progress-checkpoint-node': checkpointStatusArray[idx] === 'in-progress', 'incomplete-checkpoint-node': checkpointStatusArray[idx] === 'incomplete'}">
+  </div>
 </div>

@@ -7,7 +7,303 @@
 .oppia-lesson-player-footer {
   background-color: #fff;
   bottom: 0;
-  height: 40px;
-  position: absolute;
+  display: flex;
+  flex-direction: row;
+  height: 60px;
+  justify-content: space-between;
+  padding: 8px;
+  position: relative;
+}
+
+.player-footer-left {
+  width: 44px;
+}
+
+.player-footer-previous-button {
+  background: #fcfcfd;
+  border: 1px solid #0d48a1;
+  border-radius: 4px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25), inset -2px -2px 4px rgba(0, 0, 0, 0.3);
+  color: #0d48a1;
+  height: 44px;
+  margin: 0 auto;
+  padding: 10px 0;
   width: 100%;
+}
+
+.player-footer-right {
+  width: 113px;
+}
+
+.player-footer-continue-button {
+  background: #0d48a1;
+  border: 1px solid #0d48a1;
+  border-radius: 4px;
+  box-shadow: inset -5px -5px 4px rgba(0, 0, 0, 0.25);
+  color: #fff;
+  display: flex;
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  gap: 4px;
+  height: 44px;
+  letter-spacing: 0;
+  line-height: 22px;
+  padding: 10px 4px 10px 8px;
+  text-align: left;
+  width: 100%;
+}
+
+.player-footer-continue-button:disabled {
+  background-color: #d9d9d9;
+  box-shadow: none;
+  color: #757575;
+}
+
+.player-footer-mid {
+  display: flex;
+  gap: 16px;
+}
+
+.player-footer-save-button {
+  align-items: center;
+  background: #fff;
+  border: 1px solid #c55f45;
+  border-radius: 4px;
+  color: #c55f45;
+  display: flex;
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  gap: 8px;
+  height: 44px;
+  justify-content: center;
+  letter-spacing: 0;
+  line-height: 19px;
+  padding: 8px 12px;
+  text-align: left;
+  width: 90px;
+}
+
+.player-footer-save-button:disabled {
+  border: 1px solid #667085;
+  color: #667085;
+}
+
+.oppia-lesson-info-card .save-progress-btn-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.oppia-lesson-info-card .save-progress-btn {
+  background-color: #00645c;
+  border-radius: 7px;
+  color: #fff;
+  cursor: pointer;
+  font-family: "Capriola", "Roboto", Arial, sans-serif;
+  height: 40px;
+  margin: 5px 0;
+  width: 170px;
+}
+
+.progress-bar-label-text {
+  color: #00645c;
+  font-size: 0.9em;
+  margin-bottom: 15px;
+}
+
+.save-progress-menu-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 5;
+}
+
+.save-progress-menu {
+  background-color: #fff;
+  border-radius: 10px;
+  height: auto;
+  left: 50%;
+  max-width: 600px;
+  position: absolute;
+  top: 8vh;
+  transform: translateX(-50%);
+  width: 100%;
+  z-index: 6;
+}
+
+.save-menu-main-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.save-menu-progress-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.save-menu-progress-container .completed-checkpoint-node:not(:has(~.completed-checkpoint-node)) {
+  background-color: #c55f45;
+}
+
+.save-menu-sign-in-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.save-progress-menu h3 {
+  color: #00645c;
+  font-family: capriola, sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  margin: 20px;
+  margin-top: 40px;
+  text-align: center;
+}
+
+.save-progress-menu .sign-in-box {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: 30%;
+  justify-content: center;
+  width: 100%;
+}
+
+.save-progress-menu .sign-in-box p {
+  font-size: 18px;
+  margin: 10px 20px;
+}
+
+p.sign-in-text {
+  font-size: 16px !important;
+}
+
+.save-progress-menu .sign-in-box .sign-in-text a {
+  color: #00645c;
+  text-decoration: underline;
+}
+
+.save-progress-menu .sign-in-box .create-account-btn {
+  background-color: #00645c;
+  color: #fff;
+  cursor: pointer;
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  height: 44px;
+  margin-top: 0;
+  width: 200px;
+}
+
+.save-progress-menu .separator {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 10%;
+  justify-content: space-evenly;
+  margin: 15px 0;
+  width: 100%;
+}
+
+.save-progress-menu .separator .bars {
+  background-color: #b7b7b7;
+  height: 2px;
+  padding: auto;
+  width: 30%;
+}
+
+.save-progress-menu .uid-box {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 40%;
+  width: 100%;
+}
+
+.save-progress-menu .uid-box .oppia-tooltip-container {
+  width: 100%;
+}
+
+.save-progress-menu .uid-box .guide-text {
+  margin: 0;
+  padding: 10px 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.save-progress-menu .uid-box .copy-text {
+  font-size: 14px;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  text-align: left;
+  width: 100%;
+}
+
+.save-progress-menu .save-progress-close-button {
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+@media screen and (max-width: 971px) {
+  .player-footer-mid {
+    width: 45%;
+  }
+
+  .progress-bar-container {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 574px) {
+  .oppia-lesson-player-footer {
+    height: 48px;
+    padding: 4px;
+  }
+
+  .player-footer-left {
+    width: 40px;
+  }
+
+  .player-footer-previous-button {
+    height: 40px;
+  }
+
+  .player-footer-save-button {
+    font-size: 13px;
+    height: 40px;
+    line-height: 15.2px;
+  }
+
+  .player-footer-save-button .mat-icon {
+    display: none;
+    height: 40px;
+    width: 45px;
+  }
+
+  .player-footer-right {
+    width: 93px;
+  }
+
+  .player-footer-continue-button {
+    font-size: 13px;
+    height: 40px;
+    line-height: 15.6px;
+  }
 }

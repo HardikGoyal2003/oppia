@@ -1,1 +1,68 @@
-<div class="oppia-lesson-player-footer"></div>
+<div class="oppia-lesson-player-footer">
+     <!-- <div class="player-footer-left">
+      <button *ngIf="hasPrevious && navigationThroughCardHistoryIsEnabled"
+              class="player-footer-previous-button"
+              aria-label="Previous Card"
+              (click)="validateIndexAndChangeCard(displayedCardIndex-1)">
+        <i class="fa fa-lg fa-arrow-left"></i>
+      </button>
+    </div> -->
+    <div class="player-footer-mid">
+        <oppia-checkpoint-bar></oppia-checkpoint-bar>
+    </div>
+      <!-- <div class="progress-bar-container"
+           [ngClass]="{'d-none': checkpointCount === 1, 'multiple-checkpoints-bar': checkpointCount > 1}">
+        <div class="lesson-progress-bar">
+          <div tabindex="0" class="completed-progress-bar"
+               [style.width.%]="getCompletedProgressBarWidth()"
+               [attr.aria-label]="getProgressPercentage() + ' percent completed'">
+          </div>
+        </div>
+        <div *ngFor="let checkpointNode of checkpointStatusArray; index as idx"
+             [ngClass]="{'completed-checkpoint-node': checkpointStatusArray[idx] === 'completed', 'in-progress-checkpoint-node': checkpointStatusArray[idx] === 'in-progress', 'incomplete-checkpoint-node': checkpointStatusArray[idx] === 'incomplete'}">
+        </div>
+      </div>
+      <button *ngIf="(!userIsLoggedIn && checkpointCount>1)"
+              class="player-footer-save-button" [disabled]="checkpointStatusArray[0] === 'in-progress'"
+              (click)="saveLoggedOutProgress()">
+        <mat-icon>save</mat-icon>
+        {{ 'I18N_PLAYER_SAVE_BUTTON' | translate }}
+      </button>
+    </div>-->
+    <!-- <div class="player-footer-right">
+      <button *ngIf="hasNext || shouldContinueButtonBeShown() || showContinueToReviseButton"
+              class="player-footer-continue-button"
+              (click)="handleNewContinueButtonClick()">
+        {{ 'I18N_PLAYER_CONTINUE_BUTTON' | translate }}
+        <i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i>
+      </button>
+      <div *ngIf="!hasNext && submitButtonIsShown && !shouldContinueButtonBeShown() && !helpCardHasContinueButton">
+        Special case for the 'Continue' interaction.
+        <button *ngIf="interactionId === 'Continue'"
+                (click)="submit.emit()"
+                class="player-footer-continue-button">
+          {{ 'I18N_PLAYER_CONTINUE_BUTTON' | translate }}
+          <i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i>
+        </button>
+        <button mat-button
+                *ngIf="shouldGenericSubmitButtonBeShown()"
+                class="player-footer-continue-button"
+                (click)="submit.emit()"
+                [disabled]="displayedCard.showNoResponseError()">
+          {{ 'I18N_INTERACTIONS_SUBMIT' | translate }}
+        </button>
+      </div>
+    </div> -->
+    <!-- <oppia-progress-nav (submit)="submitAnswerFromProgressNav()"
+    [isLearnAgainButton]="isLearnAgainButton()"
+    [displayedCard]="getdisplayedCard()"
+    [submitButtonIsShown]="!getAnswerIsBeingProcessed() && !continueToReviseStateButtonIsVisible"
+    [showContinueToReviseButton]="continueToReviseStateButtonIsVisible"
+    (clickContinueButton)="showUpcomingCard()"
+    (clickContinueToReviseButton)="triggerRedirectionToStuckState()"
+    (changeCard)="changeCard($event)"
+    [navigationThroughCardHistoryIsEnabled]="navigationThroughCardHistoryIsEnabled"
+    [skipButtonIsShown]="skipButtonIsShown"
+    (skipQuestion)="skipCurrentQuestion()">
+</oppia-progress-nav> -->
+</div>
