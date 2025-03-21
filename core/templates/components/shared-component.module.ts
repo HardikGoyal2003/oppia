@@ -211,6 +211,7 @@ import {ConfirmDeleteStateModalComponent} from 'pages/exploration-editor-page/ed
 import {SaveValidationFailModalComponent} from 'pages/exploration-editor-page/modal-templates/save-validation-fail-modal.component';
 import {ModifyTranslationsModalComponent} from 'pages/exploration-editor-page/modal-templates/exploration-modify-translations-modal.component';
 import { CheckpointBarComponent } from '../pages/exploration-player-page/learner-experience/checkpoint-bar.component';
+import { NewProgressNavComponent } from '../pages/exploration-player-page/layout-directives/new-progress-nav.component';
 @NgModule({
   imports: [
     BackgroundBannerModule,
@@ -407,10 +408,12 @@ import { CheckpointBarComponent } from '../pages/exploration-player-page/learner
     SaveValidationFailModalComponent,
     ModifyTranslationsModalComponent,
     CheckpointBarComponent,
+    NewProgressNavComponent
   ],
 
   entryComponents: [
     CheckpointBarComponent,
+    NewProgressNavComponent,
     AudioBarComponent,
     AudioFileUploaderComponent,
     CompletionGraphComponent,
@@ -592,6 +595,7 @@ import { CheckpointBarComponent } from '../pages/exploration-player-page/learner
     ConfirmQuestionExitModalComponent,
     ContinueButtonComponent,
     CheckpointBarComponent,
+    NewProgressNavComponent,
     ContentLanguageSelectorComponent,
     ConversationSkinComponent,
     EndChapterCheckMarkComponent,

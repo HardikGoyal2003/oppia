@@ -32,7 +32,6 @@ import {Subscription} from 'rxjs';
 import {ContextService} from 'services/context.service';
 import {LoggerService} from 'services/contextual/logger.service';
 import {UrlService} from 'services/contextual/url.service';
-import {WindowDimensionsService} from 'services/contextual/window-dimensions.service';
 import {I18nLanguageCodeService} from 'services/i18n-language-code.service';
 import {UserService} from 'services/user.service';
 import {ExplorationEngineService} from '../services/exploration-engine.service';
@@ -91,7 +90,6 @@ export class ExplorationFooterComponent {
     private i18nLanguageCodeService: I18nLanguageCodeService,
     private ngbModal: NgbModal,
     private urlService: UrlService,
-    private windowDimensionsService: WindowDimensionsService,
     private questionPlayerStateService: QuestionPlayerStateService,
     private readOnlyExplorationBackendApiService: ReadOnlyExplorationBackendApiService,
     private learnerViewInfoBackendApiService: LearnerViewInfoBackendApiService,
