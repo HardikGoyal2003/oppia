@@ -58,7 +58,8 @@
     <p>
       {{ translatedCurrentCheckpointMessage }}
     </p>
-    <div class="progress-bar-container"
+    <oppia-checkpoint-bar></oppia-checkpoint-bar>
+    <!-- <div class="progress-bar-container"
          [ngClass]="{'single-checkpoint-bar': totalNumberOfCheckpoints === 1, 'multiple-checkpoints-bar': totalNumberOfCheckpoints > 1}">
       <div class="progress-bar">
         <div class="completed-progress-bar"
@@ -76,7 +77,7 @@
           }">
         {{ idx + 1 }}
       </div>
-    </div>
+    </div> -->
     <div class="button-row">
       <button class="progress-info" (click)="openLessonInfoModal()" [attr.tabindex]="(messageModalIsShown || miniMessageTooltipIsShown) ? 1 : -1">
         <i class="material-icons progress-info-icon">&#xE88E;</i>

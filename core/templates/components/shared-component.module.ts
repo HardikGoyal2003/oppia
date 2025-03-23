@@ -122,6 +122,7 @@ import {QuestionsOpportunitiesSelectDifficultyModalComponent} from 'pages/topic-
 import {QuestionsListSelectSkillAndDifficultyModalComponent} from 'pages/topic-editor-page/modal-templates/questions-list-select-skill-and-difficulty-modal.component';
 import {QuestionEditorSaveModalComponent} from './question-directives/modal-templates/question-editor-save-modal.component';
 import {HintEditorComponent} from 'components/state-directives/hint-editor/hint-editor.component';
+import { CheckpointBarComponent } from '../pages/exploration-player-page/layout-directives/checkpoint-bar.component';
 import {ResponseHeaderComponent} from './state-directives/response-header/response-header.component';
 import {StateContentEditorComponent} from './state-editor/state-content-editor/state-content-editor.component';
 import {StateHintsEditorComponent} from 'components/state-editor/state-hints-editor/state-hints-editor.component';
@@ -405,9 +406,11 @@ import {ModifyTranslationsModalComponent} from 'pages/exploration-editor-page/mo
     ConfirmDeleteStateModalComponent,
     SaveValidationFailModalComponent,
     ModifyTranslationsModalComponent,
+    CheckpointBarComponent,
   ],
 
   entryComponents: [
+    CheckpointBarComponent,
     AudioBarComponent,
     AudioFileUploaderComponent,
     CompletionGraphComponent,
@@ -559,6 +562,7 @@ import {ModifyTranslationsModalComponent} from 'pages/exploration-editor-page/mo
     ConfirmDeleteStateModalComponent,
     SaveValidationFailModalComponent,
     ModifyTranslationsModalComponent,
+    CheckpointBarComponent,
   ],
 
   exports: [
@@ -589,6 +593,7 @@ import {ModifyTranslationsModalComponent} from 'pages/exploration-editor-page/mo
     ConfirmQuestionExitModalComponent,
     ContinueButtonComponent,
     ContentLanguageSelectorComponent,
+    CheckpointBarComponent,
     ConversationSkinComponent,
     EndChapterCheckMarkComponent,
     EndChapterConfettiComponent,

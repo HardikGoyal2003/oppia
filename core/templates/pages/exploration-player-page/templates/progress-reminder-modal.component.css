@@ -4,7 +4,7 @@
   padding: 30px 20px;
 }
 
-.oppia-progress-reminder-modal .progress-bar-container {
+/* .oppia-progress-reminder-modal .progress-bar-container {
   align-items: center;
   display: flex;
   font-family: "Capriola", "Roboto", Arial, sans-serif;
@@ -83,9 +83,9 @@
   text-align: center;
   width: 25px;
   z-index: 0;
-}
+} */
 
-.oppia-progress-reminder-modal .progress-reminder-text {
+/* .oppia-progress-reminder-modal .progress-reminder-text {
   color: #00645c;
   font-size: 1.2em;
   font-weight: 500;
@@ -93,7 +93,7 @@
 
 .oppia-progress-reminder-modal .progress-reminder-text .completion-fraction {
   font-weight: 800;
-}
+} */
 
 .oppia-progress-reminder-modal .exploration-title {
   margin-bottom: 30px;

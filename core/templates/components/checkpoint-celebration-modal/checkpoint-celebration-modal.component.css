@@ -193,7 +193,7 @@
   transition-property: opacity;
 }
 
-.checkpoint-celebration-modal .standard-message-container .completed-checkpoint-node {
+/* .checkpoint-celebration-modal .standard-message-container .completed-checkpoint-node {
   background-color: #00645c;
   border-radius: 50%;
   color: #fff;
@@ -233,7 +233,7 @@
   text-align: center;
   width: 25px;
   z-index: 0;
-}
+} */
 
 .checkpoint-celebration-modal .standard-message-container .hidden-checkpoint-node {
   opacity: 0;
