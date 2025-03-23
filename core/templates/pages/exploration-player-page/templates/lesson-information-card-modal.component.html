@@ -27,8 +27,6 @@
         <h4 tabindex="0" [ngClass]="(checkpointCount === 1) ? 'd-none' : 'progress-bar-label-text'">
           Learning Progress
         </h4>
-        <!-- <oppia-checkpoint-bar></oppia-checkpoint-bar> -->
-
         <div class="progress-bar-container"
              [ngClass]="{'d-none': checkpointCount === 1, 'multiple-checkpoints-bar': checkpointCount > 1, 'reverse-checkpoint-order': isLanguageRTL()}">
           <div class="lesson-progress-bar"

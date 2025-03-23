@@ -7,7 +7,6 @@
       {{ explorationTitle }}
     </p>
   </div>
-  <!-- <oppia-checkpoint-bar></oppia-checkpoint-bar> -->
   <div class="progress-bar-container" [ngClass]="{'single-checkpoint-bar': checkpointCount === 1, 'multiple-checkpoints-bar': checkpointCount > 1, 'reverse-checkpoint-order': isLanguageRTL()}">
     <div class="progress-bar" [ngClass]="{'reverse-checkpoint-order': isLanguageRTL()}">
       <div class="completed-progress-bar" [style.width.%]="getCompletedProgressBarWidth()"></div>

@@ -22,7 +22,6 @@ import {AppConstants} from 'app.constants';
 import {BindableVoiceovers} from 'domain/exploration/recorded-voiceovers.model';
 import {
   Question,
-  QuestionObjectFactory,
 } from 'domain/question/QuestionObjectFactory';
 import {State} from 'domain/state/StateObjectFactory';
 import {StateCard} from 'domain/state_card/state-card.model';
