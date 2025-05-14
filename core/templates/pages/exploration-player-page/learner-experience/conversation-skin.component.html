@@ -28,17 +28,17 @@
                         [inputOutputHistoryIsShown]="inputOutputHistoryIsShown"
                         [checkpointCelebrationModalIsEnabled]="checkpointCelebrationModalIsEnabled">
       </oppia-tutor-card>
-      <div *ngIf="isCurrentSupplementalCardNonempty() && !canWindowShowTwoCards()">
+      <!-- <div *ngIf="isCurrentSupplementalCardNonempty() && !canWindowShowTwoCards()">
         <oppia-supplemental-card (clickContinueButton)="showUpcomingCard()"
                                  [displayedCard]="displayedCard"
                                  [isLearnAgainButton]="isLearnAgainButton()">
         </oppia-supplemental-card>
-      </div>
+      </div> -->
       <div *ngIf="getCanAskLearnerForAnswerInfo()">
         <oppia-learner-answer-info-card (submitAnswer)="submitAnswer($event.currentAnswer, $event.rulesService)">
         </oppia-learner-answer-info-card>
       </div>
-      <div *ngIf="!getCanAskLearnerForAnswerInfo()">
+      <div *ngIf="!getCanAskLearnerForAnswerInfo()" class="progress-nav-bar-container">
         <oppia-progress-nav (submit)="submitAnswerFromProgressNav()"
                             [isLearnAgainButton]="isLearnAgainButton()"
                             [displayedCard]="displayedCard"
@@ -73,14 +73,14 @@
       </div>
     </div>
 
-    <div *ngIf="isCurrentSupplementalCardNonempty() && canWindowShowTwoCards()"
+    <div *ngIf="isCurrentSupplementalCardNonempty()"
          class="conversation-skin-supplemental-card-container">
       <div class="supplemental-card-parent-container">
         <oppia-supplemental-card (clickContinueButton)="showUpcomingCard()"
                                  [displayedCard]="displayedCard"
                                  [isLearnAgainButton]="isLearnAgainButton()">
         </oppia-supplemental-card>
-        <div class="conversation-skin-supplemental-nav" *ngIf="isSupplementalNavShown() && !getCanAskLearnerForAnswerInfo()">
+        <div class="conversation-skin-supplemental-nav" *ngIf="!getCanAskLearnerForAnswerInfo()">
           <button mat-button
                   type="submit"
                   class="oppia-learner-confirm-button oppia-learner-submit-answer-button e2e-test-submit-answer-button conversation-skin-supplemental-nav-submit-button"
