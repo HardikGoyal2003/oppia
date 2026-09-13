@@ -393,7 +393,6 @@
         "core.jobs.batch_jobs.user_bios_change_jobs_test",
         "core.jobs.batch_jobs.skill_inspection_jobs_test",
         "core.jobs.transforms.validation.story_validation_test",
-        "core.tests.load_tests.feedback_thread_summaries_test",
         "core.tests.test_utils_test",
         "core.tests.gae_suite_test",
         "core.controllers.creator_dashboard_test",
